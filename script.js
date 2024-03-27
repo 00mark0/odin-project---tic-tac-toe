@@ -10,6 +10,7 @@ const cell8 = document.getElementById("cell8");
 const endgame = document.getElementById("endgame");
 const text = document.getElementById("text");
 const restartBtn = document.getElementById("restartBtn");
+const body = document.querySelector("body");
 
 const board = [
   ["", "", ""],
@@ -65,7 +66,7 @@ const checkWinner = (board) => {
     board[0][2] === board[1][1] &&
     board[1][1] === board[2][0]
   ) {
-    return (text.textContent = `${board[0][2]}`);
+    return (text.textContent = `${board[0][2]} Player wins!`);
   }
 
   // draw
@@ -77,6 +78,10 @@ const checkWinner = (board) => {
 };
 
 const cellClick = (cell, i, j) => {
+  if (board[i][j] !== "") {
+    return;
+  }
+
   const result = moveLogic(i, j);
   cell.textContent = result;
   const winner = checkWinner(board);
@@ -84,13 +89,20 @@ const cellClick = (cell, i, j) => {
     endgame.showModal();
   }
 };
+cell0.addEventListener("click", () => cellClick(cell0, 0, 0));
+cell1.addEventListener("click", () => cellClick(cell1, 0, 1));
+cell2.addEventListener("click", () => cellClick(cell2, 0, 2));
+cell3.addEventListener("click", () => cellClick(cell3, 1, 0));
+cell4.addEventListener("click", () => cellClick(cell4, 1, 1));
+cell5.addEventListener("click", () => cellClick(cell5, 1, 2));
+cell6.addEventListener("click", () => cellClick(cell6, 2, 0));
+cell7.addEventListener("click", () => cellClick(cell7, 2, 1));
+cell8.addEventListener("click", () => cellClick(cell8, 2, 2));
 
-cell0.addEventListener("click", () => cellClick(cell0, 0, 0), { once: true });
-cell1.addEventListener("click", () => cellClick(cell1, 0, 1), { once: true });
-cell2.addEventListener("click", () => cellClick(cell2, 0, 2), { once: true });
-cell3.addEventListener("click", () => cellClick(cell3, 1, 0), { once: true });
-cell4.addEventListener("click", () => cellClick(cell4, 1, 1), { once: true });
-cell5.addEventListener("click", () => cellClick(cell5, 1, 2), { once: true });
-cell6.addEventListener("click", () => cellClick(cell6, 2, 0), { once: true });
-cell7.addEventListener("click", () => cellClick(cell7, 2, 1), { once: true });
-cell8.addEventListener("click", () => cellClick(cell8, 2, 2), { once: true });
+restartBtn.addEventListener("click", () => {
+  board.forEach((row) => row.fill(""));
+  document.querySelectorAll(".cell").forEach((cell) => (cell.textContent = ""));
+  endgame.close();
+  text.textContent = "";
+  currentPlayer = "x";
+});
