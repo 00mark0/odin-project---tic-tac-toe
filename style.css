@@ -89,7 +89,7 @@ header #createName {
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 4em;
+  font-size: 8em;
   font-weight: 900;
   border-right: 5px solid white;
   border-bottom: 5px solid white;
@@ -205,19 +205,5 @@ header #createName {
 
   #endgame button {
     font-size: 1em;
-  }
-
-  #names {
-    width: 90vw;
-    padding: 20px;
-  }
-
-  #names input {
-    width: 100%;
-    margin-bottom: 10px;
-  }
-
-  #names button {
-    width: 100%;
   }
 }
