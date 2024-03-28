@@ -14,22 +14,41 @@
     <script src="./script.js" defer></script>
   </head>
   <body>
-    <div class="board">
-      <div class="cell" id="cell0"></div>
-      <div class="cell" id="cell1"></div>
-      <div class="cell" id="cell2"></div>
-      <div class="cell" id="cell3"></div>
-      <div class="cell" id="cell4"></div>
-      <div class="cell" id="cell5"></div>
-      <div class="cell" id="cell6"></div>
-      <div class="cell" id="cell7"></div>
-      <div class="cell" id="cell8"></div>
-    </div>
-    <dialog class="endgame" id="endgame">
-      <div class="container">
-        <p class="text" id="text"></p>
-        <button id="restartBtn">Restart</button>
+    <header>
+      <div class="header">
+        <h1>Tic Tac Toe</h1>
+        <button id="start">Start</button>
+        <button id="createName">Create Names</button>
+        <dialog id="names">
+          <div class="container">
+            <label for="player1">Player 1</label>
+            <input type="text" id="player1" />
+            <label for="player2">Player 2</label>
+            <input type="text" id="player2" />
+            <button id="submit">Submit</button>
+            <button id="close">Close</button>
+          </div>
+        </dialog>
       </div>
-    </dialog>
+    </header>
+    <main>
+      <div class="gameBoard" style="display: none">
+        <div class="cell" id="cell0"></div>
+        <div class="cell" id="cell1"></div>
+        <div class="cell" id="cell2"></div>
+        <div class="cell" id="cell3"></div>
+        <div class="cell" id="cell4"></div>
+        <div class="cell" id="cell5"></div>
+        <div class="cell" id="cell6"></div>
+        <div class="cell" id="cell7"></div>
+        <div class="cell" id="cell8"></div>
+      </div>
+      <dialog class="endgame" id="endgame">
+        <div class="container">
+          <p class="text" id="text"></p>
+          <button id="restartBtn">Play</button>
+        </div>
+      </dialog>
+    </main>
   </body>
 </html>

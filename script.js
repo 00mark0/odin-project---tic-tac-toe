@@ -11,6 +11,55 @@ const endgame = document.getElementById("endgame");
 const text = document.getElementById("text");
 const restartBtn = document.getElementById("restartBtn");
 const body = document.querySelector("body");
+const start = document.getElementById("start");
+const gameBoard = document.querySelector(".gameBoard");
+const header = document.querySelector(".header");
+const createName = document.getElementById("createName");
+const names = document.getElementById("names");
+const player1 = document.getElementById("player1");
+const player2 = document.getElementById("player2");
+const submit = document.getElementById("submit");
+const close = document.getElementById("close");
+let player1Name = "Player 1";
+let player2Name = "Player 2";
+let player1Score = 0;
+let player2Score = 0;
+
+start.addEventListener("click", () => {
+  gameBoard.style.display = "grid";
+  header.style.display = "none";
+  const back = document.createElement("button");
+  back.textContent = "Back";
+  back.style.margin = "0 auto";
+  gameBoard.appendChild(back);
+  currentPlayer = "x";
+  back.addEventListener("click", () => {
+    gameBoard.style.display = "none";
+    header.style.display = "block";
+    back.style.display = "none";
+    board.forEach((row) => row.fill(""));
+    document
+      .querySelectorAll(".cell")
+      .forEach((cell) => (cell.textContent = ""));
+    player1Name = "Player 1";
+    player2Name = "Player 2";
+    player1Score = 0;
+    player2Score = 0;
+  });
+});
+
+createName.addEventListener("click", (e) => {
+  e.preventDefault();
+  names.showModal();
+  close.addEventListener("click", () => {
+    names.close();
+  });
+  submit.addEventListener("click", () => {
+    player1Name = player1.value;
+    player2Name = player2.value;
+    names.close();
+  });
+});
 
 const board = [
   ["", "", ""],
@@ -37,7 +86,7 @@ const checkWinner = (board) => {
       board[i][0] === board[i][1] &&
       board[i][1] === board[i][2]
     ) {
-      return (text.textContent = `${board[i][0]} Player wins!`);
+      return board[i][0];
     }
   }
 
@@ -48,7 +97,7 @@ const checkWinner = (board) => {
       board[0][j] === board[1][j] &&
       board[1][j] === board[2][j]
     ) {
-      return (text.textContent = `${board[0][j]} Player wins!`);
+      return board[0][j];
     }
   }
 
@@ -58,7 +107,7 @@ const checkWinner = (board) => {
     board[0][0] === board[1][1] &&
     board[1][1] === board[2][2]
   ) {
-    return (text.textContent = `${board[0][0]} Player wins!`);
+    return board[0][0];
   }
 
   if (
@@ -66,12 +115,12 @@ const checkWinner = (board) => {
     board[0][2] === board[1][1] &&
     board[1][1] === board[2][0]
   ) {
-    return (text.textContent = `${board[0][2]} Player wins!`);
+    return board[0][2];
   }
 
   // draw
   if (board.flat().every((cell) => cell !== "")) {
-    return (text.textContent = "It's a tie");
+    return "draw";
   }
 
   return "No winner yet";
@@ -85,6 +134,15 @@ const cellClick = (cell, i, j) => {
   const result = moveLogic(i, j);
   cell.textContent = result;
   const winner = checkWinner(board);
+  if (winner === "x") {
+    player1Score++;
+    text.textContent = `${player1Name} wins!\n Score: ${player1Score}\t,  ${player2Name} Score: ${player2Score}`;
+  } else if (winner === "o") {
+    player2Score++;
+    text.textContent = `${player2Name} wins!\n Score: ${player2Score}\t,  ${player1Name} Score: ${player1Score}`;
+  } else {
+    text.textContent = "It's a draw!";
+  }
   if (winner !== "No winner yet") {
     endgame.showModal();
   }
@@ -103,6 +161,6 @@ restartBtn.addEventListener("click", () => {
   board.forEach((row) => row.fill(""));
   document.querySelectorAll(".cell").forEach((cell) => (cell.textContent = ""));
   endgame.close();
-  text.textContent = "";
   currentPlayer = "x";
+  text.textContent = "";
 });
